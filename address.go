@@ -16,7 +16,7 @@ func cleanInput(text string) []string {
 	return words
 }
 
-func startAddress() {
+func startAddress(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
 
@@ -32,7 +32,10 @@ func startAddress() {
 
 			if len(res) == 1 {
 				if cmd, exists := commands[commandName]; exists {
-					cmd.callback()
+					err := cmd.callback(cfg)
+					if err != nil {
+						fmt.Println(err)
+					}
 				} else {
 					fmt.Println("Unknown command")
 				}
