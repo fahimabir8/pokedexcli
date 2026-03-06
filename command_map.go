@@ -6,7 +6,7 @@ import (
 )
 
 
-func callBackMap(cfg *config) error{
+func callBackMap(cfg *config, args ...string) error{
 	resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.nextLocationAreaURL)
 
 	if err != nil {
@@ -24,7 +24,7 @@ func callBackMap(cfg *config) error{
 	return err
 }
 
-func callBackMapb(cfg *config) error{
+func callBackMapb(cfg *config, args ...string) error{
 	if cfg.prevLocationAreaURL == nil {
 		errors.New("You're literally on the first page buddy!!")
 	}
@@ -33,7 +33,6 @@ func callBackMapb(cfg *config) error{
 	if err != nil {
 		return err
 	}
-	
 	
 	for _, area := range resp.Results {
 		fmt.Printf("%s\n", area.Name)
